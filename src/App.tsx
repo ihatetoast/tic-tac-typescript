@@ -24,13 +24,14 @@ const computerSimulatedClick = (
     });
   });
   // rando index to pick
-  const randoIdx = Math.floor(Math.random() * possibleOptions.length);
-  return possibleOptions[randoIdx];
+  const randomIndex = Math.floor(Math.random() * possibleOptions.length);
+  return possibleOptions[randomIndex];
 };
 
 
 const checkForWinner = (gbd: GridArrayType): string | null => {
     // hardcode combo: 3 rows, 3 cols, two diags
+    // fill in the combinations with the vals of the grid passed in
     const combinations = [
       [gbd[0][0], gbd[0][1], gbd[0][2]],
       [gbd[1][0], gbd[1][1], gbd[1][2]],
@@ -77,49 +78,51 @@ function App() {
     // ttt is simple enough we can just update. prevState isn't nec as no one is that rapid
     setGameGrid(updatedGridHuman);
 
-    const winningPlayer = checkForWinner(updatedGridHuman);
-    setWinner(winningPlayer);
+    const humanWinner = checkForWinner(updatedGridHuman);
+    if(humanWinner) {
+      setWinner(humanWinner);
+      return; // game over; human wins
+    }
 
-    // game board is full
-    const isNowFull = updatedGridHuman.every(row => row.every(row=> row !== null));
-    if(isNowFull && !winner) {
+    // game board is full (game can be full only after the player makes a move. 9th square when 2 play will be first player's turn -- human)
+    const isBoardFull = updatedGridHuman.every(row => row.every(cell=> cell !== null));
+    if(isBoardFull && !winner) {
       setIsTie(true);
-      return;
+      return; // game over; tie--no winner
     }
 
     // computer's turn
-    if(!winningPlayer){
-
-      // get the pair of row/col for a random empty cell, using human's 
+    // get the pair of row/col for a random empty cell, using human's 
       const [compRow, compCol] = computerSimulatedClick(updatedGridHuman);
 
-      const updatedGridComp = updatedGridHuman.map((compPlayRow, compPlayRowIdx) =>
-      compPlayRow.map((compPlayCell, compPlayCellIdx) =>
-        compPlayRowIdx === compRow && compPlayCellIdx === compCol
+      const updatedGridComp = updatedGridHuman.map((row, rowIdx) =>
+      row.map((cell, cellIdx) =>
+        rowIdx === compRow && cellIdx === compCol
           ? 'O'
-          : compPlayCell
+          : cell
       ));
 
+      // artificial delay to make the computer less ... jarring
       setTimeout(() => {
         setGameGrid(updatedGridComp);
         const compWinner = checkForWinner(updatedGridComp);
           setWinner(compWinner);
       }, 200);
-    }
+    
   };
 
   const restartGame = (): void => {
     setGameGrid(INITIAL_GAME_GRID);
     setWinner(null);
-  setIsTie(false);
+    setIsTie(false);
   };
   const button = <button className="reset-btn" onClick={restartGame}>Play again!</button>;
 
   return (
-    <div>
-      <GameBoard board={gameGrid} handleCellClick={handleCellClick} />
-      {isTie &&  <div><p className="message">It's a tie!</p>{button}</div>}
-      {winner && <div><p className={`message player-${winner.toLowerCase()}`}>{winner === 'X' ? 'Humanoid wins.' : 'Computer who only chose at random beat you. Wtf?!'}</p>
+    <div className="container">
+      <GameBoard board={gameGrid} handleCellClick={handleCellClick} winner={winner}/>
+      {isTie &&  <div className="message-container"><p className="message">It's a tie!</p>{button}</div>}
+      {winner && <div className="message-container"><p className={`message player-${winner.toLowerCase()}`}>{winner === 'X' ? 'Humanoid wins.' : 'The computer, which only chose at random, beat you.'}</p>
       {button}
       </div>}
     </div>

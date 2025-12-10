@@ -3,7 +3,7 @@
 
 ## What
 
-Player-v-computer-style tic-tac-toe game. Meh.
+Player-v-computer-style tic-tac-toe game.
 
 ## Why
 
@@ -14,76 +14,8 @@ Wanted to play around with different ways of checking the game, playing a comput
 Vite, React, Typescript, cussin
 
 
-
 ## What if ...
 
-Mulling in my head how to make the computer smarter and not just randomly choose from an array of empty cells. Thinking to add a function that is similar to check winner and look for rows/cols/diags that have 2/3 of the other player's symbols and then choose that. But as of this writing, I'm just comparing basic game logic and using Typescript. (Along this thought is another TTT but for Tailwind practice). 
+- Make the computer make better choices. Mulling in my head how to make the computer smarter and not just randomly choose from an array of empty cells. Thinking to add a function that is similar to check winner and look for rows/cols/diags that have 2/3 of the other player's symbols and then choose that. But as of this writing, I'm just comparing basic game logic and using Typescript. (Along this thought is another TTT but for Tailwind practice). 
+- Animate results. Make CSS more fun since this is mine and not for a company (where I have to obeeey the Figmaaa vs just play)
 
-
----
-
-
-# React + TypeScript + Vite mumbo jumbo
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules. Which I may or may not pay attention to. 
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
