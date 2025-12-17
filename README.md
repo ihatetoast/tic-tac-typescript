@@ -5,6 +5,10 @@
 
 Player-v-computer-style tic-tac-toe game.
 
+## Where
+
+[Tic-Tac-Typescript on GH Pages](http://www.ihatetoast.com/tic-tac-typescript/)
+
 ## Why
 
 Wanted to play around with different ways of checking the game, playing a computer (vs alternating with another human), and, of course, using TypeScript. I find that I like to have a few mini-apps to bang through to focus on little things.
